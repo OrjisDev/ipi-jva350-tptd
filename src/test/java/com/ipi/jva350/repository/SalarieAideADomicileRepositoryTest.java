@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 @ExtendWith(SpringExtension.class) // Junit 4 : @RunWith(SpringRunner.class)
 @DataJpaTest // ou carrément @SpringBootTest et sa configuration
-public class SalarieAideADomicileRepositoryTest {
+class SalarieAideADomicileRepositoryTest {
 
     @Autowired
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
@@ -22,8 +22,8 @@ public class SalarieAideADomicileRepositoryTest {
     @BeforeEach
     void before() {
         // (pas besoin normalement, la base en mémoire est recrée à chaque test)
-        //repository.deleteAll();
-        //Assertions.assertEquals(0, repository.findAll().size());
+        salarieAideADomicileRepository.deleteAll();
+        Assertions.assertEquals(0, salarieAideADomicileRepository.findAll().size());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class SalarieAideADomicileRepositoryTest {
         // When :
         SalarieAideADomicile salarieTrouve = salarieAideADomicileRepository.findByNom(testNom);
         // Then :
-        Assertions.assertEquals(null, salarieTrouve);
+        Assertions.assertNull(salarieTrouve);
     }
 
     @Test

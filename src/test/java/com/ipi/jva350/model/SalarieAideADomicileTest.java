@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 
 class SalarieAideADomicileTest {
@@ -39,40 +39,18 @@ class SalarieAideADomicileTest {
     /**
      * Test représentatif du cas "a légalement pas droit des congés"
      */
-    @Test
-    void testALegalementDroitADesCongesPayesTrueTypique() {
+
+    @ParameterizedTest
+    @ValueSource(ints = {10,100,101})
+    void testALegalementDroitADesCongesPayese(int arg) {
         // Given
         SalarieAideADomicile s = new SalarieAideADomicile();
-        s.setJoursTravaillesAnneeNMoins1(100);
+        s.setJoursTravaillesAnneeNMoins1(arg);
         // When
         boolean res = s.aLegalementDroitADesCongesPayes();
         // Then
-        // avec 100j de travaillé, il est très probable d'avoir un jour de congés !
         Assertions.assertTrue(res);
     }
-
-    /* tests nominaux / typiques n'apportant rien de plus :
-    @Test
-    void testALegalementDroitADesCongesPayes100() {
-        // Given
-        SalarieAideADomicile s = new SalarieAideADomicile();
-        s.setJoursTravaillesAnneeNMoins1(100);
-        // When
-        boolean res = s.aLegalementDroitADesCongesPayes();
-        // Then
-        Assertions.assertTrue(res); // TODO vérifie que Sonar demande amélioration
-    }
-    @Test
-    void testALegalementDroitADesCongesPayes101() {
-        // Given
-        SalarieAideADomicile s = new SalarieAideADomicile();
-        s.setJoursTravaillesAnneeNMoins1(101);
-        // When
-        boolean res = s.aLegalementDroitADesCongesPayes();
-        // Then
-        Assertions.assertTrue(res); // TODO vérifie que Sonar demande amélioration
-    }
-    */
 
     @Test
     void testALegalementDroitADesCongesPayesFalseAuxLimites() {
@@ -83,17 +61,6 @@ class SalarieAideADomicileTest {
         boolean res = s.aLegalementDroitADesCongesPayes();
         // Then
         Assertions.assertFalse(res);
-    }
-
-    @Test
-    void testALegalementDroitADesCongesPayesTrueAuxLimites() {
-        // Given
-        SalarieAideADomicile s = new SalarieAideADomicile();
-        s.setJoursTravaillesAnneeNMoins1(10);
-        // When
-        boolean res = s.aLegalementDroitADesCongesPayes();
-        // Then
-        Assertions.assertTrue(res);
     }
 
     @Test

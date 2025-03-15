@@ -21,8 +21,11 @@ public class SalarieAideADomicileServiceMockACorrigerTest {
     @Mock
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
     @InjectMocks
-    private SalarieAideADomicileService salarieService = new SalarieAideADomicileService();
+    private SalarieAideADomicileService salarieService;
 
+    @Test
+    void findAll() {
 
+    }
 
 }

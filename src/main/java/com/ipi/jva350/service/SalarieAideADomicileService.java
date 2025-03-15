@@ -17,10 +17,11 @@ import java.util.stream.Collectors;
 @Service
 public class SalarieAideADomicileService {
 
-    @Autowired
-    private SalarieAideADomicileRepository salarieAideADomicileRepository;
+    private final SalarieAideADomicileRepository salarieAideADomicileRepository;
 
-    public SalarieAideADomicileService() {
+    @Autowired
+    public SalarieAideADomicileService(SalarieAideADomicileRepository salarieAideADomicileRepository) {
+        this.salarieAideADomicileRepository = salarieAideADomicileRepository;
     }
 
     /**
@@ -111,7 +112,7 @@ public class SalarieAideADomicileService {
         LinkedHashSet<LocalDate> joursDecomptes = salarieAideADomicile
                 .calculeJoursDeCongeDecomptesPourPlage(jourDebut, jourFin);
 
-        if (joursDecomptes.size() == 0) {
+        if (joursDecomptes.isEmpty()) {
             throw new SalarieException("Pas besoin de congés !");
         }
 
@@ -168,7 +169,7 @@ public class SalarieAideADomicileService {
         salarieAideADomicile.setJoursTravaillesAnneeN(salarieAideADomicile.getJoursTravaillesAnneeN() + joursTravailles);
 
         salarieAideADomicile.setCongesPayesAcquisAnneeN(salarieAideADomicile.getCongesPayesAcquisAnneeN()
-                + salarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS);
+                + SalarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS);
 
         salarieAideADomicile.setMoisEnCours(salarieAideADomicile.getMoisEnCours().plusMonths(1));
 
