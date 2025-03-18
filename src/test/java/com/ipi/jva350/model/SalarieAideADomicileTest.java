@@ -18,7 +18,7 @@ class SalarieAideADomicileTest {
         // When
         boolean res = s.aLegalementDroitADesCongesPayes();
         // Then
-        Assertions.assertEquals(false, res); // TODO vérifie que Sonar demande amélioration
+        Assertions.assertEquals(false, res);
     }
 
     /**
@@ -71,7 +71,6 @@ class SalarieAideADomicileTest {
         LinkedHashSet<LocalDate>  res = s.calculeJoursDeCongeDecomptesPourPlage(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-11-01"));
         // Then
         Assertions.assertNotNull(res);
-        //Assertions.assertTrue(res.isEmpty());
         Assertions.assertEquals(0, res.size());
     }
 
@@ -87,8 +86,9 @@ class SalarieAideADomicileTest {
         LinkedHashSet<LocalDate> nbJoursDansPlage = s.calculeJoursDeCongeDecomptesPourPlage(LocalDate.parse(dateDebutString), LocalDate.parse(dateFinString));
         // Then
         Assertions.assertNotNull(nbJoursDansPlage);
-        //Assertions.assertTrue(res.isEmpty());
         Assertions.assertEquals(count, nbJoursDansPlage.size());
     }
+
+
 
 }

@@ -1,13 +1,14 @@
 package com.ipi.jva350.model;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
-public class EntrepriseTest {
+import static com.ipi.jva350.model.Entreprise.getPremierJourAnneeDeConges;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class EntrepriseTest {
 
 
     @ParameterizedTest
@@ -23,7 +24,7 @@ public class EntrepriseTest {
         LocalDate date = LocalDate.parse(dateStr);
         LocalDate debut = LocalDate.parse(debutStr);
         LocalDate fin = LocalDate.parse(finStr);
-        Assertions.assertEquals(expected, Entreprise.estDansPlage(date, debut, fin));
+        assertEquals(expected, Entreprise.estDansPlage(date, debut, fin));
     }
 
     @ParameterizedTest
@@ -36,10 +37,33 @@ public class EntrepriseTest {
     })
     void testEstJourFerie(String dateStr, boolean expected) {
         LocalDate date = LocalDate.parse(dateStr);
-        Assertions.assertEquals(expected, Entreprise.estJourFerie(date));
+        assertEquals(expected, Entreprise.estJourFerie(date));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "2025-04-01, 0.9333333333333333",
+            "2025-05-01, 1.0",
+            "2025-06-01, 0.06666666666666667",
+            "2025-07-01, 0.23333333333333334",
+            "2025-08-01, 0.4"
+    })
+    void testProportionPondereeDuMois(String dateStr, double expectedValue) {
+        LocalDate date = LocalDate.parse(dateStr);
+        assertEquals(expectedValue, Entreprise.proportionPondereeDuMois(date));
+    }
 
+    @ParameterizedTest
+    @CsvSource({
+            "2024-03-15,2023-06-01",
+            "2024-07-10,2024-06-01",
+            "2024-06-01,2024-06-01"
+    })
+    void testPremierJourDeCongé(String dateStr, String dateExpected) {
+        LocalDate date = LocalDate.parse(dateStr);
+        LocalDate dateExp = LocalDate.parse(dateExpected);
+        assertEquals(dateExp, getPremierJourAnneeDeConges(date));
+    }
 
 
 }
