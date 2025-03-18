@@ -141,14 +141,13 @@ public final class Entreprise {
 
     /**
      * Calcule si une date donnée est dans une plage (intervalle) de date (inclusif)
-     * @param d
+     * @param date date que l'on cherche
      * @param debut date de début de la plage
      * @param fin date de fin de la plage
      * @return
      */
-    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException("à implémenter en TDD !");
+    public static boolean estDansPlage(LocalDate date, LocalDate debut, LocalDate fin) {
+        return (date.isEqual(debut) || date.isAfter(debut)) && (date.isEqual(fin) || date.isBefore(fin));
     }
 
 }
